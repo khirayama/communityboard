@@ -23,7 +23,7 @@ export default function Login() {
     }
     
     // ログイン成功後のリダイレクト
-    window.location.href = '/';
+    window.location.href = '/app';
   };
 
   return (
