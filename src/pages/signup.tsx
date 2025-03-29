@@ -11,8 +11,17 @@ export default function Signup() {
     e.preventDefault();
     setError('');
     
-    // ここにサインアップのロジックを実装
-    console.log('サインアップ試行:', { email, password });
+    const { error } = await supabase.auth.signUp({
+      email,
+      password
+    });
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    
+    setSuccess(true);
   };
 
   return (

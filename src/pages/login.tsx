@@ -11,8 +11,18 @@ export default function Login() {
     e.preventDefault();
     setError('');
     
-    // ここにログインのロジックを実装
-    console.log('ログイン試行:', { email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    
+    // ログイン成功後のリダイレクト
+    window.location.href = '/';
   };
 
   return (
