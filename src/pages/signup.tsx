@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { supabase } from '../lib/supabase';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -17,8 +16,7 @@ export default function Signup() {
     e.preventDefault();
     setError('');
     
-    const supabaseClient = useSupabaseClient();
-    const { error } = await supabaseClient.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password
     });
