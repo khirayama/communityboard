@@ -1,0 +1,13 @@
+{
+  "title": "Community Board",
+  "signup": "サインアップ",
+  "login": "ログイン",
+  "features": {
+    "createBoard": "簡単にボードを作成",
+    "createBoardDesc": "必要な情報を共有するためのボードを簡単に作成できます。",
+    "realTime": "リアルタイム更新",
+    "realTimeDesc": "情報はリアルタイムで更新され、常に最新の状態を確認できます。",
+    "responsive": "モバイル対応",
+    "responsiveDesc": "スマートフォンやタブレットからも快適に利用できるレスポンシブデザイン。"
+  }
+}

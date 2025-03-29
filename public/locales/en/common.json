@@ -1,0 +1,13 @@
+{
+  "title": "Community Board",
+  "signup": "Sign Up",
+  "login": "Login",
+  "features": {
+    "createBoard": "Create Boards Easily",
+    "createBoardDesc": "Easily create boards to share necessary information.",
+    "realTime": "Real-time Updates",
+    "realTimeDesc": "Information is updated in real-time, allowing you to always check the latest status.",
+    "responsive": "Mobile Responsive",
+    "responsiveDesc": "Responsive design that's comfortable to use from smartphones and tablets."
+  }
+}
