@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { supabase } from '../lib/supabase';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
