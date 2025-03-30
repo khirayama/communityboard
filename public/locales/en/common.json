@@ -25,5 +25,7 @@
       "location": "Nearest"
     },
     "empty-feed": "No posts to display"
-  }
+  },
+  "loading": "Loading...",
+  "logout": "Logout"
 }
