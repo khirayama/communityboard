@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { supabase } from '../lib/supabase'
 
 type FeedType = 'all' | 'recommended' | 'filtered'
@@ -14,9 +15,11 @@ export default function AppPage() {
   const [user, setUser] = useState<any>(null)
   const [showFilters, setShowFilters] = useState(false)
   const [filters, setFilters] = useState({
-    location: '',
+    location: { range: 10, unit: 'km' },
     tags: [] as string[],
-    keywords: ''
+    keywords: '',
+    users: [] as string[],
+    organizations: [] as string[]
   })
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -70,33 +73,97 @@ export default function AppPage() {
             </button>
             {showFilters && (
               <div className="absolute mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-10">
-                <div className="space-y-4">
+                <div className="space-y-4 p-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      {t('filter.location')}
+                      位置範囲 (km)
                     </label>
-                    <input 
-                      type="text" 
+                    <select
+                      value={filters.location.range}
+                      onChange={(e) => setFilters({...filters, location: {...filters.location, range: Number(e.target.value)}})}
                       className="w-full p-2 border rounded"
-                      placeholder="10km以内"
-                    />
+                    >
+                      {[1, 3, 5, 10, 20, 50].map((km) => (
+                        <option key={km} value={km}>{km}km以内</option>
+                      ))}
+                    </select>
                   </div>
+                  
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      {t('filter.tags')}
+                      タグ
                     </label>
-                    <input 
-                      type="text" 
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {filters.tags.map((tag) => (
+                        <span key={tag} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                          {tag}
+                          <button 
+                            onClick={() => setFilters({...filters, tags: filters.tags.filter(t => t !== tag)})}
+                            className="ml-1"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex">
+                      <input
+                        type="text"
+                        className="flex-1 p-2 border rounded-l"
+                        placeholder="タグを追加"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && e.currentTarget.value) {
+                            setFilters({...filters, tags: [...filters.tags, e.currentTarget.value]});
+                            e.currentTarget.value = '';
+                          }
+                        }}
+                      />
+                      <button 
+                        className="px-3 bg-gray-200 rounded-r"
+                        onClick={() => {
+                          const input = document.querySelector('input[placeholder="タグを追加"]') as HTMLInputElement;
+                          if (input?.value) {
+                            setFilters({...filters, tags: [...filters.tags, input.value]});
+                            input.value = '';
+                          }
+                        }}
+                      >
+                        追加
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      キーワード
+                    </label>
+                    <input
+                      type="text"
+                      value={filters.keywords}
+                      onChange={(e) => setFilters({...filters, keywords: e.target.value})}
                       className="w-full p-2 border rounded"
-                      placeholder="タグを入力"
+                      placeholder="キーワード検索"
                     />
                   </div>
-                  <div className="flex space-x-2">
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                      {t('filter.apply')}
+
+                  <div className="flex space-x-2 pt-2">
+                    <button 
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                      onClick={() => setActiveTab('filtered')}
+                    >
+                      フィルター適用
                     </button>
-                    <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
-                      {t('filter.reset')}
+                    <button 
+                      className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                      onClick={() => setFilters({
+                        location: { range: 10, unit: 'km' },
+                        tags: [],
+                        keywords: '',
+                        users: [],
+                        organizations: []
+                      })}
+                    >
+                      リセット
                     </button>
                   </div>
                 </div>
@@ -145,10 +212,27 @@ export default function AppPage() {
         </div>
 
         <div className="grid gap-4">
-          <div className="p-4 border rounded">
-            <p className="text-center text-gray-500">
-              {t('app.empty-feed')}
+          <div className="p-8 border rounded-lg text-center">
+            <p className="text-gray-500 mb-4">
+              表示できるフィードがありません
             </p>
+            <button
+              onClick={() => {
+                setFilters({
+                  ...filters,
+                  location: { range: 10, unit: 'km' }
+                });
+                setActiveTab('filtered');
+              }}
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+              現在地から10km以内のフィードを表示
+            </button>
+            <div className="mt-6">
+              <Link href="/create-board" className="text-blue-500 hover:text-blue-700">
+                  新しいボードを作成する
+              </Link>
+            </div>
           </div>
         </div>
       </main>
