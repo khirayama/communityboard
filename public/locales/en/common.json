@@ -9,9 +9,7 @@
     "realTimeDesc": "Information is updated in real-time, allowing you to always check the latest status.",
     "responsive": "Mobile Responsive",
     "responsiveDesc": "Responsive design that's comfortable to use from smartphones and tablets."
-  }
-}
-{
+  },
   "app": {
     "title": "Community Board",
     "description": "Board for sharing community information",
