@@ -11,3 +11,19 @@
     "responsiveDesc": "Responsive design that's comfortable to use from smartphones and tablets."
   }
 }
+{
+  "app": {
+    "title": "Community Board",
+    "description": "Board for sharing community information",
+    "tabs": {
+      "all": "All",
+      "recommended": "Recommended",
+      "filtered": "Filtered"
+    },
+    "sort": {
+      "date": "Newest",
+      "location": "Nearest"
+    },
+    "empty-feed": "No posts to display"
+  }
+}
