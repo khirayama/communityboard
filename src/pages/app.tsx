@@ -12,6 +12,12 @@ export default function AppPage() {
   const [activeTab, setActiveTab] = useState<FeedType>('all')
   const [sortOrder, setSortOrder] = useState<SortOrder>('date')
   const [user, setUser] = useState<any>(null)
+  const [showFilters, setShowFilters] = useState(false)
+  const [filters, setFilters] = useState({
+    location: '',
+    tags: [] as string[],
+    keywords: ''
+  })
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
@@ -55,6 +61,48 @@ export default function AppPage() {
 
       <main className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center space-x-4">
+            <button 
+              onClick={() => setShowFilters(!showFilters)}
+              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg"
+            >
+              {t('filter.title')}
+            </button>
+            {showFilters && (
+              <div className="absolute mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-10">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      {t('filter.location')}
+                    </label>
+                    <input 
+                      type="text" 
+                      className="w-full p-2 border rounded"
+                      placeholder="10km以内"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      {t('filter.tags')}
+                    </label>
+                    <input 
+                      type="text" 
+                      className="w-full p-2 border rounded"
+                      placeholder="タグを入力"
+                    />
+                  </div>
+                  <div className="flex space-x-2">
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                      {t('filter.apply')}
+                    </button>
+                    <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                      {t('filter.reset')}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <h1 className="text-2xl font-bold">{t('app.title')}</h1>
           <div className="flex items-center space-x-4">
             <span className="text-sm">{user?.email}</span>

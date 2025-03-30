@@ -25,5 +25,17 @@
     "empty-feed": "No posts to display"
   },
   "loading": "Loading...",
-  "logout": "Logout"
+  "logout": "Logout",
+  "filter": {
+    "title": "Filters",
+    "location": "Location",
+    "tags": "Tags",
+    "keywords": "Keywords",
+    "apply": "Apply Filters",
+    "reset": "Reset"
+  },
+  "feed": {
+    "viewNearby": "View posts near me",
+    "createFirst": "Create your first post"
+  }
 }
